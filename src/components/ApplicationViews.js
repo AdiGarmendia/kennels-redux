@@ -1,6 +1,7 @@
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import React from "react";
 import Home from "./home/Home";
+import Login from "./auth/Login";
 //only include these once they are built - previous practice exercise
 import LocationCard from "./locations/LocationCard";
 import EmployeeCard from "./employees/EmployeeCard";
@@ -10,8 +11,11 @@ import AnimalDetail from "./animal/AnimalDetail";
 import AnimalForm from "./animal/AnimalForm";
 
 const ApplicationViews = () => {
+	// Check if credentials are in session storage returns true/false
+	const isAuthenticated = () => sessionStorage.getItem("credentials") !== null;
 	return (
 		<React.Fragment>
+			<Route path="/login" component={Login} />
 			<Route
 				exact
 				path="/"
@@ -25,7 +29,11 @@ const ApplicationViews = () => {
 				exact
 				path="/animals"
 				render={(props) => {
-					return <AnimalList {...props} />;
+					if (isAuthenticated()) {
+						return <AnimalList {...props} />;
+					} else {
+						return <Redirect to="/login" />;
+					}
 				}}
 			/>
 			{/* // Our shiny new route. */}
