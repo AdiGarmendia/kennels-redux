@@ -9,6 +9,7 @@ import OwnerCard from "./owners/OwnerCard";
 import AnimalList from "./animal/AnimalList";
 import AnimalDetail from "./animal/AnimalDetail";
 import AnimalForm from "./animal/AnimalForm";
+import AnimalEditForm from "./animal/AnimalEditForm";
 
 const ApplicationViews = () => {
 	// Check if credentials are in session storage returns true/false
@@ -44,17 +45,32 @@ const ApplicationViews = () => {
 				}}
 			/>
 			<Route
+				exact
 				path="/animals/:animalId(\d+)"
 				render={(props) => {
-					// Pass the animalId to the AnimalDetailComponent
-					return (
-						<AnimalDetail
-							animalId={parseInt(props.match.params.animalId)}
-							{...props}
-						/>
-					);
+					if (isAuthenticated()) {
+						return (
+							<AnimalDetail
+								animalId={parseInt(props.match.params.animalId)}
+								{...props}
+							/>
+						);
+					} else {
+						return <Redirect to="/login" />;
+					}
 				}}
 			/>
+			<Route
+				path="/animals/:animalId(\d+)/edit"
+				render={(props) => {
+					if (isAuthenticated()) {
+						return <AnimalEditForm {...props} />;
+					} else {
+						return <Redirect to="/login" />;
+					}
+				}}
+			/>
+			); }} />
 			{/*
   This is a new route to handle a URL with the following pattern:
   http://localhost:3000/animals/1
