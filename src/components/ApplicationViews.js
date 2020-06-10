@@ -70,7 +70,7 @@ const ApplicationViews = () => {
 					}
 				}}
 			/>
-			); }} />
+
 			{/*
   This is a new route to handle a URL with the following pattern:
   http://localhost:3000/animals/1
