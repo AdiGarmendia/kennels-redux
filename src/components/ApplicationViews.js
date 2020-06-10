@@ -7,6 +7,7 @@ import EmployeeCard from "./employees/EmployeeCard";
 import OwnerCard from "./owners/OwnerCard";
 import AnimalList from "./animal/AnimalList";
 import AnimalDetail from "./animal/AnimalDetail";
+import AnimalForm from "./animal/AnimalForm";
 
 const ApplicationViews = () => {
 	return (
@@ -19,11 +20,19 @@ const ApplicationViews = () => {
 				}}
 			/>
 			{/* Make sure you add the `exact` attribute here */}
+			{/* updated route: `/animals` */}
 			<Route
 				exact
 				path="/animals"
 				render={(props) => {
-					return <AnimalList />;
+					return <AnimalList {...props} />;
+				}}
+			/>
+			{/* // Our shiny new route. */}
+			<Route
+				path="/animals/new"
+				render={(props) => {
+					return <AnimalForm {...props} />;
 				}}
 			/>
 			<Route
@@ -38,7 +47,6 @@ const ApplicationViews = () => {
 					);
 				}}
 			/>
-
 			{/*
   This is a new route to handle a URL with the following pattern:
   http://localhost:3000/animals/1
