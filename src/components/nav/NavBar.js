@@ -1,8 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import "./NavBar.css";
 
 const NavBar = (props) => {
+	const handleLogout = () => {
+		props.clearUser();
+		props.history.push("/");
+	};
 	return (
 		<header>
 			<h1 className="site-title">
@@ -13,53 +18,84 @@ const NavBar = (props) => {
 			<nav>
 				<ul className="container">
 					<li>
-						<Link className="nav-link" to="/">
+						<NavLink
+							exact
+							className="nav-link"
+							to="/"
+							activeClassName="selected"
+						>
 							{" "}
 							Home{" "}
-						</Link>
+						</NavLink>
 					</li>
 					{props.hasUser ? (
 						<li>
-							<Link className="nav-link" to="/animals">
+							<NavLink
+								className="nav-link"
+								to="/animals"
+								activeClassName="selected"
+							>
 								{" "}
 								Animals{" "}
-							</Link>
+							</NavLink>
 						</li>
 					) : null}
 					<li>
-						<Link className="nav-link" to="/locations">
+						<NavLink
+							className="nav-link"
+							to="/location"
+							activeClassName="selected"
+						>
 							{" "}
 							Locations{" "}
-						</Link>
+						</NavLink>
 					</li>
 					{props.hasUser ? (
 						<li>
-							<Link className="nav-link" to="/employees">
+							<NavLink
+								className="nav-link"
+								to="/employees"
+								activeClassName="selected"
+							>
 								{" "}
 								Employees{" "}
-							</Link>
+							</NavLink>
 						</li>
 					) : null}
 					{props.hasUser ? (
 						<li>
-							<Link className="nav-link" to="/owners">
+							<NavLink
+								className="nav-link"
+								to="/owner"
+								activeClassName="selected"
+							>
 								{" "}
 								Owners{" "}
-							</Link>
+							</NavLink>
 						</li>
 					) : null}
-					{!props.hasUser ? (
+					{props.hasUser ? (
 						<li>
-							<Link className="nav-link" to="/login">
+							<span className="nav-link" onClick={handleLogout}>
 								{" "}
-								Login{" "}
-							</Link>
+								Logout{" "}
+							</span>
 						</li>
-					) : null}
+					) : (
+						<li>
+							<NavLink
+								className="nav-link"
+								to="/login"
+								activeClassName="selected"
+							>
+								Login
+							</NavLink>
+						</li>
+					)}
 				</ul>
 			</nav>
 		</header>
 	);
 };
 
-export default NavBar;
+export default withRouter(NavBar);

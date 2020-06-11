@@ -19,6 +19,13 @@ const ApplicationViews = (props) => {
 	return (
 		<React.Fragment>
 			<Route
+				exact
+				path="/"
+				render={(props) => {
+					return <Home />;
+				}}
+			/>
+			<Route
 				path="/login"
 				render={(props) => {
 					return <Login setUser={setUser} {...props} />;
