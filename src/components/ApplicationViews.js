@@ -10,6 +10,8 @@ import AnimalList from "./animal/AnimalList";
 import AnimalDetail from "./animal/AnimalDetail";
 import AnimalForm from "./animal/AnimalForm";
 import AnimalEditForm from "./animal/AnimalEditForm";
+import EmployeeWithAnimals from "./employees/EmployeeWithAnimals";
+import EmployeeList from "./employees/EmployeeList";
 
 const ApplicationViews = () => {
 	// Check if credentials are in session storage returns true/false
@@ -88,7 +90,13 @@ const ApplicationViews = () => {
 			<Route
 				path="/employees"
 				render={(props) => {
-					return <EmployeeCard />;
+					return <EmployeeList {...props} />;
+				}}
+			/>
+			<Route
+				path="/employees/:employeeId(\d+)/details"
+				render={(props) => {
+					return <EmployeeWithAnimals {...props} />;
 				}}
 			/>
 			<Route
